@@ -1,38 +1,54 @@
-.App {
+body{
+  background-color: rgb(24, 24, 24);
+}
+
+.container {
   text-align: center;
+  margin: auto;
+  width: 50%;
+  background-color: black; /* Set background color to black */
+  color: white; /* Set text color to white */
+  padding: 20px; /* Add some padding for better readability */
 }
 
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
+.input-field {
+  margin-bottom: 10px;
+  padding: 5px;
+  width: 50%;
 }
 
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
+.score-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  align-items: center;
+  gap: 4px;
+}
+
+
+
+.score-label {
+  display: flex /* Adds space between the label and score */ 
+}
+
+.rank-button {
+  margin-top: 10px;
+  padding: 10px 20px;
+  background-color: purple;
   color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
 }
 
-.App-link {
-  color: #61dafb;
+.rank-button:hover {
+  background-color: rgb(99, 45, 100);
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+h1 {
+  color: purple; /* Set h1 color to purple */
+}
+
+ul {
+  color: white;
 }
