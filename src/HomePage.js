@@ -5,8 +5,8 @@ import axios from 'axios';
 
 function HomePage() {
     // State variables to store name and id
-    const[name, setName] = useState("");
-    const[id, setId] = useState("");
+    const[students, setStudents] = useState([]);
+    const[selectedStudentId, setSelectedStudentId] = useState("");
     const[musicScore, setMusicScore] = useState(0);
     const[adaptScore, setAdaptScore] = useState(0);
     const[techniqueScore, setTechniqueScore] = useState(0);
@@ -19,19 +19,12 @@ function HomePage() {
     }, []);
     
     // Function to handle name input change
-    const handleNameChange = (event) => {
-      setName(event.target.value);
-    };
-
-    const handleIdChange = (event) => {
-      setId(event.target.value);
-  };
 
       
     const fetchStudents = async () => {
       try {
-        const reponse = await axios.get('http://localhost:5000/data');
-        setStudents(repsonse.data);
+        const response = await axios.get('http://localhost:5000/data');
+        setStudents(response.data);
       } catch(error) {
         console.error('Error fetching students data', error);
       }
@@ -44,9 +37,7 @@ function HomePage() {
     
     // Function to handle ranking
     const handleRanking = async () => {
-      const newStudent = {
-        name, 
-        id,
+      const updatedScores = {
         musicScore,
         adaptScore,
         techniqueScore,
@@ -54,7 +45,7 @@ function HomePage() {
     };
     
     try {
-        await axios.post(`http://localhost:5000/data/${setSelectedStudentId}`, updatedScores); // We added this post request so we can post it to the DB lmao 
+        await axios.post(`http://localhost:5000/data/${selectedStudentId}`, updatedScores); // We added this post request so we can post it to the DB lmao 
         navigate('/audition-data'); // Naviate to the audition-data page using app.js, this is what its called
     } catch (error) {
         console.error('Error adding student data', error); 
@@ -72,26 +63,18 @@ function HomePage() {
 
 
       // Function to handle ID input change
-   // 5/27/24 stopped here need to change the return to add student select bar
+   // 5/27/24 stopped here need to change the return to add student select bar--> place the selected student id in the box 
     return (
         <div className="container">
           <h1>Auditionee Ranking</h1>
-          <input
-            type="text"
-            placeholder="Enter name"
-            value={name}
-            onChange={handleNameChange}
-            className="input-field"
-          />
-          <br />
-          <input
-            type="text"
-            placeholder="Enter ID"
-            value={id}
-            onChange={handleIdChange}
-            className="input-field"
-          />
-          <br />
+          <select onChange={handleStudentSelect} value={selectedStudentId}> 
+            <option value="" disabled>Select a student</option>
+            {students.map(student => (
+              <option key={student._id} value={student._id}> 
+                {student.FIRST} {student.LAST} ({student.NAMETAG})
+              </option>
+            ))}
+    </select>  
         <div className="score-container">
           <div>
             <span className="score-label">Music Score: {musicScore}</span>
