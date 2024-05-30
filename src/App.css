@@ -52,3 +52,31 @@ h1 {
 ul {
   color: white;
 }
+
+/* Styles for student list */
+
+.student-list {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.student-item {
+  border: 1px solid #ccc;
+  padding: 10px;
+  margin: 5px;
+  cursor: pointer;
+}
+
+.student-item.selected {
+  background-color: #f0f0f0;
+  border-color: #000;
+}
+
+.score-container {
+  margin-top: 20px;
+}
+
+.score-label {
+  display: block;
+  margin-bottom: 5px;
+}
