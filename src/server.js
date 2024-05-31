@@ -13,7 +13,7 @@ app.use(cors()); // Enable cross-origin requests from frontend to backend
 app.use(express.json()); // Parse incoming JSON requests
 
 // MongoDB connection string for local instance
-const mongoUri = 'mongodb://localhost:27017/students';
+const mongoUri = 'mongodb://localhost:27017/school';
 
 // MongoDB connection
 mongoose.connect(mongoUri, {
@@ -115,6 +115,22 @@ app.put('/data/:id', async (req, res) => {
   }
 });
 
+// app.put('/data/:id', async (req, res) => {
+//   const { id } = req.params;
+//   const { instrument } = req.body
+  
+//   try{
+//     const student = await AuditionData.findById(req.body); 
+//     if(!student) {
+//       return res.status(404).json({ message: 'Student not found'}); 
+//     }
+//     student.INSTRUMENT = instrument; 
+
+//   }
+// }
+
 app.listen(port, () => {
   console.log(`Server running on port ${port}`); // () => is a callback function that runs as a condition of a promise.
 });
+
+

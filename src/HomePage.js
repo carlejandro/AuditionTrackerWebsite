@@ -60,54 +60,55 @@ function HomePage() {
     };
 
     return (
-        <div className="container">
-            <h1>Auditionee Ranking</h1>
-            <div className="student-list"> 
-                {students.map((student) => (
-                    <div
-                        key={student._id}
-                        className={`student-item ${selectedStudent && selectedStudent._id === student._id ? 'selected' : ''}`}
-                        onClick={() => {
-                            setSelectedStudent(student);
-                            setMusicScore(student.MUSICSCORE || 0);
-                            setAdaptScore(student.ADAPTSCORE || 0);
-                            setTechniqueScore(student.TECHNIQUESCORE || 0);
-                            setPrepScore(student.PREPSCORE || 0);
-                        }}
-                    >
-                        {student.FIRST} {student.LAST}
-                    </div>
-                ))}
-            </div>
-            {selectedStudent && (
-                <div className="score-container">
-                    <h2>Ranking for {selectedStudent.FIRST} {selectedStudent.LAST}</h2>
-                    <div>
-                        <span className="score-label">Music Score: {musicScore}</span>
-                        <button onClick={() => incrementScore(setMusicScore)}>+</button>
-                        <button onClick={() => decrementScore(setMusicScore)}>-</button>
-                    </div>
-                    <div>
-                        <span className="score-label">Adaptability Score: {adaptScore}</span>
-                        <button onClick={() => incrementScore(setAdaptScore)}>+</button>
-                        <button onClick={() => decrementScore(setAdaptScore)}>-</button>
-                    </div>
-                    <div>
-                        <span className="score-label">Technique Score: {techniqueScore}</span>
-                        <button onClick={() => incrementScore(setTechniqueScore)}>+</button>
-                        <button onClick={() => decrementScore(setTechniqueScore)}>-</button>
-                    </div>
-                    <div>
-                        <span className="score-label">Preparation Score: {prepScore}</span>
-                        <button onClick={() => incrementScore(setPrepScore)}>+</button>
-                        <button onClick={() => decrementScore(setPrepScore)}>-</button>
-                    </div>
-                    <br />
-                    <button onClick={handleRanking} className="rank-button">Rank</button>
-                </div>
-            )}
-        </div>
-    );
+      <div className="container">
+          <h1>Auditionee Ranking</h1>
+          <div className="student-list-container">
+              <div className="student-list">
+                  {students.map((student) => (
+                      <div
+                          key={student._id}
+                          className={`student-item ${selectedStudent && selectedStudent._id === student._id ? 'selected' : ''}`}
+                          onClick={() => {
+                              setSelectedStudent(student);
+                              setMusicScore(student.MUSICSCORE);
+                              setAdaptScore(student.ADAPTSCORE);
+                              setTechniqueScore(student.TECHNIQUESCORE);
+                              setPrepScore(student.PREPSCORE);
+                          }}
+                      >
+                          {student.FIRST} {student.LAST}
+                      </div>
+                  ))}
+              </div>
+          </div>
+          <div className="score-container">
+              {selectedStudent && (
+                  <h2>Ranking for {selectedStudent.FIRST} {selectedStudent.LAST}</h2>
+              )}
+              <div>
+                  <span className="score-label">Music Score: {musicScore}</span>
+                  <button onClick={() => incrementScore(setMusicScore)}>+</button>
+                  <button onClick={() => decrementScore(setMusicScore)}>-</button>
+              </div>
+              <div>
+                  <span className="score-label">Adaptability Score: {adaptScore}</span>
+                  <button onClick={() => incrementScore(setAdaptScore)}>+</button>
+                  <button onClick={() => decrementScore(setAdaptScore)}>-</button>
+              </div>
+              <div>
+                  <span className="score-label">Technique Score: {techniqueScore}</span>
+                  <button onClick={() => incrementScore(setTechniqueScore)}>+</button>
+                  <button onClick={() => decrementScore(setTechniqueScore)}>-</button>
+              </div>
+              <div>
+                  <span className="score-label">Preparation Score: {prepScore}</span>
+                  <button onClick={() => incrementScore(setPrepScore)}>+</button>
+                  <button onClick={() => decrementScore(setPrepScore)}>-</button>
+              </div>
+              <br />
+              <button onClick={handleRanking} className="rank-button">Rank</button>
+          </div>
+      </div>
+  );
 }
-
 export default HomePage;
