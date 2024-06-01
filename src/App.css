@@ -2,6 +2,14 @@ body{
   background-color: rgb(24, 24, 24);
 }
 
+h1 {
+  color: purple; /* Set h1 color to purple */
+}
+
+ul {
+  color: white;
+}
+
 .container {
   text-align: center;
   margin: auto;
@@ -11,11 +19,7 @@ body{
   padding: 20px; /* Add some padding for better readability */
 }
 
-.input-field {
-  margin-bottom: 10px;
-  padding: 5px;
-  width: 50%;
-}
+
 
 .score-container {
   display: flex;
@@ -24,7 +28,6 @@ body{
   align-items: center;
   gap: 4px;
 }
-
 
 
 .score-label {
@@ -45,14 +48,35 @@ body{
   background-color: rgb(99, 45, 100);
 }
 
-h1 {
-  color: purple; /* Set h1 color to purple */
+
+
+/* Styles for the selection buttons */ 
+.instrument-section-list {
+  margin-bottom: 20px;
 }
 
-ul {
+.instrument-section-list button {
+  background-color: #8a349f;
+  border: none;
   color: white;
+  padding: 15px 15px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  margin: 4px 2px;
+  transition-duration: 0.4s;
+  cursor: pointer;
+  border-radius: 8px;
+  border: 2px solid #8a349f
 }
 
+.instrument-section-list button:hover {
+  background-color: #8a349f;
+  border: white; 
+  color:  white;
+  border: 2px solid #4CAF50;
+}
 /* Styles for student list */
 .container {
   display: flex;
@@ -74,6 +98,7 @@ ul {
   display: flex;
   flex-direction: column;
   gap: 10px;
+  width: 20%;
 }
 
 .student-item {
@@ -83,9 +108,12 @@ ul {
 }
 
 .student-item.selected {
-  background-color: #f0f0f0;
+  background-color: #e907d2;
   border-color: #aaa;
 }
+
+
+
 
 .score-container {
   display: flex;

@@ -1,10 +1,9 @@
 import React, { useEffect, useState } from "react";
-import { useNavigate } from 'react-router-dom'; // Import useNavigate hook makes navigation easy.
-import axios from 'axios'; 
+import { useNavigate } from 'react-router-dom'; // Import useNavigate hook
 import "./App.css";
+import axios from 'axios'; 
 
 function HomePage() {
-    // State variables to store students, selected student, and scores
     const [students, setStudents] = useState([]);
     const [selectedStudent, setSelectedStudent] = useState(null);
     const [musicScore, setMusicScore] = useState(0);
@@ -42,73 +41,90 @@ function HomePage() {
         };
 
         try {
-            await axios.post(`http://localhost:5000/data/${selectedStudent._id}`, updatedScores); // Post request to update the student's scores in the database
-            navigate('/audition-data'); // Navigate to the audition-data page using app.js
+            await axios.put(`http://localhost:5000/data/${selectedStudent._id}`, updatedScores);
+            navigate('/audition-data');
         } catch (error) {
             console.error('Error updating student scores', error);
         }
     };
 
-    // Function to increment score
+    // Functions to increment and decrement scores
     const incrementScore = (setter) => {
         setter((prevScore) => Math.min(prevScore + 1, 3));
     };
 
-    // Function to decrement score
     const decrementScore = (setter) => {
         setter((prevScore) => Math.max(prevScore - 1, 0));
     };
 
+    // Function to filter students by instrument
+    const filterByInstrument = async (instrument) => {
+        try {
+            const response = await axios.get(`http://localhost:5000/data/instrument/${instrument}`);
+            setStudents(response.data);
+        } catch (error) {
+            console.error('Error filtering students by instrument', error);
+        }
+    };
+
     return (
-      <div className="container">
-          <h1>Auditionee Ranking</h1>
-          <div className="student-list-container">
-              <div className="student-list">
-                  {students.map((student) => (
-                      <div
-                          key={student._id}
-                          className={`student-item ${selectedStudent && selectedStudent._id === student._id ? 'selected' : ''}`}
-                          onClick={() => {
-                              setSelectedStudent(student);
-                              setMusicScore(student.MUSICSCORE);
-                              setAdaptScore(student.ADAPTSCORE);
-                              setTechniqueScore(student.TECHNIQUESCORE);
-                              setPrepScore(student.PREPSCORE);
-                          }}
-                      >
-                          {student.FIRST} {student.LAST}
-                      </div>
-                  ))}
-              </div>
-          </div>
-          <div className="score-container">
-              {selectedStudent && (
-                  <h2>Ranking for {selectedStudent.FIRST} {selectedStudent.LAST}</h2>
-              )}
-              <div>
-                  <span className="score-label">Music Score: {musicScore}</span>
-                  <button onClick={() => incrementScore(setMusicScore)}>+</button>
-                  <button onClick={() => decrementScore(setMusicScore)}>-</button>
-              </div>
-              <div>
-                  <span className="score-label">Adaptability Score: {adaptScore}</span>
-                  <button onClick={() => incrementScore(setAdaptScore)}>+</button>
-                  <button onClick={() => decrementScore(setAdaptScore)}>-</button>
-              </div>
-              <div>
-                  <span className="score-label">Technique Score: {techniqueScore}</span>
-                  <button onClick={() => incrementScore(setTechniqueScore)}>+</button>
-                  <button onClick={() => decrementScore(setTechniqueScore)}>-</button>
-              </div>
-              <div>
-                  <span className="score-label">Preparation Score: {prepScore}</span>
-                  <button onClick={() => incrementScore(setPrepScore)}>+</button>
-                  <button onClick={() => decrementScore(setPrepScore)}>-</button>
-              </div>
-              <br />
-              <button onClick={handleRanking} className="rank-button">Rank</button>
-          </div>
-      </div>
-  );
+        <div className="container">
+            <h1>Auditionee Ranking</h1>
+            <div className="instrument-section-list">
+                <button onClick={() => filterByInstrument('Visual Ensemble')}>Visual Ensemble</button>
+                <button onClick={() => filterByInstrument('Snare')}>Snare</button>
+                <button onClick={() => filterByInstrument('Tenors')}>Tenors</button>
+                <button onClick={() => filterByInstrument('Bass Drum')}>Bass Drum</button>
+                <button onClick={() => filterByInstrument('Front Ensemble')}>Front Ensemble</button>
+            </div>
+            <div className="student-list">
+                {students.map((student) => (
+                    <div
+                        key={student._id}
+                        className={`student-item ${selectedStudent && selectedStudent._id === student._id ? 'selected' : ''}`}
+                        onClick={() => {
+                            setSelectedStudent(student);
+                            setMusicScore(student.MUSICSCORE);
+                            setAdaptScore(student.ADAPTSCORE);
+                            setTechniqueScore(student.TECHNIQUESCORE);
+                            setPrepScore(student.PREPSCORE);
+                        }}
+                    >
+                        {student.FIRST} {student.LAST}
+                    </div>
+                ))}
+            </div>
+            <div className="score-container">
+                {selectedStudent && (
+                    <>
+                        <h2>Ranking for {selectedStudent.FIRST} {selectedStudent.LAST}</h2>
+                        <div>
+                            <span className="score-label">Music Score: {musicScore}</span>
+                            <button onClick={() => incrementScore(setMusicScore)}>+</button>
+                            <button onClick={() => decrementScore(setMusicScore)}>-</button>
+                        </div>
+                        <div>
+                            <span className="score-label">Adaptability Score: {adaptScore}</span>
+                            <button onClick={() => incrementScore(setAdaptScore)}>+</button>
+                            <button onClick={() => decrementScore(setAdaptScore)}>-</button>
+                        </div>
+                        <div>
+                            <span className="score-label">Technique Score: {techniqueScore}</span>
+                            <button onClick={() => incrementScore(setTechniqueScore)}>+</button>
+                            <button onClick={() => decrementScore(setTechniqueScore)}>-</button>
+                        </div>
+                        <div>
+                            <span className="score-label">Preparation Score: {prepScore}</span>
+                            <button onClick={() => incrementScore(setPrepScore)}>+</button>
+                            <button onClick={() => decrementScore(setPrepScore)}>-</button>
+                        </div>
+                        <br />
+                        <button onClick={handleRanking} className="rank-button">Rank</button>
+                    </>
+                )}
+            </div>
+        </div>
+    );
 }
+
 export default HomePage;
