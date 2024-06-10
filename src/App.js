@@ -5,9 +5,7 @@ import HomePage from './HomePage';
 import AuditionData from './AuditionDataPage';
 
 function App() {
-  // 4 Variables for scoring
-  // Need to display their name and their ID #
-  // 
+  
   
   return ( 
     <Router>

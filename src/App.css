@@ -1,5 +1,6 @@
 body{
   background-color: rgb(24, 24, 24);
+  color: white
 }
 
 h1 {
@@ -131,4 +132,36 @@ button {
 
 .rank-button {
   margin-top: 20px;
+}
+
+/* Styles for the Student Table in the Audition Data Page */
+
+.student-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: 20px 0;
+  font-size: 1em;
+  text-align: left;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  background-color: rgba(128, 0, 128, 0.5); /* Purple transparent background */
+}
+
+.student-table thead tr {
+  background-color: rgba(128, 0, 128, 0.7); /* Darker purple for header */
+  color: white;
+  text-align: left;
+  font-weight: bold;
+}
+
+.student-table th, .student-table td {
+  padding: 12px 15px;
+  border: 1px solid black; /* White borders */
+}
+
+.student-table tbody tr {
+  border-bottom: 1px solid white;
+}
+
+.student-table tbody tr:last-of-type {
+  border-bottom: 2px solid rgba(128, 0, 128, 0.7);
 }
